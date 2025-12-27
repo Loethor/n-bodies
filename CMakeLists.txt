@@ -16,6 +16,7 @@ add_executable(app
     src/simulation/simulation.cpp
     src/integrator/euler_integrator.cpp
     src/config/config_loader.cpp
+    src/output.cpp
 )
 target_compile_options(app PRIVATE -Wall -Wextra -Wpedantic)
 
@@ -35,15 +36,17 @@ enable_testing()
 
 # Test executable
 add_executable(tests
-    tests/body_test.cpp
-    tests/math_test.cpp
-    tests/config_loader_test.cpp
-    tests/simulation_test.cpp
-    tests/euler_integrator_test.cpp
-    src/body/body.cpp
-    src/simulation/simulation.cpp
-    src/integrator/euler_integrator.cpp
-    src/config/config_loader.cpp
+  tests/body_test.cpp
+  tests/math_test.cpp
+  tests/config_loader_test.cpp
+  tests/simulation_test.cpp
+  tests/euler_integrator_test.cpp
+  tests/output_test.cpp
+  src/body/body.cpp
+  src/simulation/simulation.cpp
+  src/integrator/euler_integrator.cpp
+  src/config/config_loader.cpp
+  src/output.cpp
 )
 target_link_libraries(tests gtest_main)
 target_compile_options(tests PRIVATE -Wall -Wextra -Wpedantic)
