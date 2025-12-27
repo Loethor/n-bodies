@@ -1,6 +1,3 @@
-# Smart Makefile for CMake projects
-# Usage: just run `make` from the project root
-
 BUILD_DIR := build
 
 .PHONY: all
