@@ -12,8 +12,10 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 # Main executable
 add_executable(app 
     src/main.cpp
+    src/body/body.cpp
     src/simulation/simulation.cpp
     src/integrator/euler_integrator.cpp
+    src/config/config_loader.cpp
 )
 target_compile_options(app PRIVATE -Wall -Wextra -Wpedantic)
 
@@ -35,8 +37,11 @@ enable_testing()
 add_executable(tests
     tests/body_test.cpp
     tests/math_test.cpp
+    tests/config_loader_test.cpp
+    src/body/body.cpp
     src/simulation/simulation.cpp
     src/integrator/euler_integrator.cpp
+    src/config/config_loader.cpp
 )
 target_link_libraries(tests gtest_main)
 target_compile_options(tests PRIVATE -Wall -Wextra -Wpedantic)
