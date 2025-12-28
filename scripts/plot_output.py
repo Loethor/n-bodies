@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 import sys
 import os
+import numpy as np
 
 if len(sys.argv) > 1:
     filename = sys.argv[1]
@@ -26,13 +27,14 @@ fig, ax = plt.subplots()
 colors = plt.colormaps.get_cmap('tab10')
 # Get radius for each body (default to 1e6 if missing)
 body_radius = {row['body_name']: row['radius'] if 'radius' in row else 1e6 for _, row in df.drop_duplicates('body_name').iterrows()}
-lines = {name: ax.plot([], [], 'o', label=name, color=colors(i / max(1, len(bodies) - 1)), markersize=body_radius.get(name, 1e6)/1e6)[0] for i, name in enumerate(bodies)}
+# Use log scale for marker size, ensure minimum size
+lines = {name: ax.plot([], [], 'o', label=name, color=colors(i / max(1, len(bodies) - 1)), markersize=5)[0] for i, name in enumerate(bodies)}
 trails = {name: ax.plot([], [], '-', color=colors(i / max(1, len(bodies) - 1)), alpha=0.5)[0] for i, name in enumerate(bodies)}
 
 ax.set_xlabel('x (m)')
 ax.set_ylabel('y (m)')
 ax.set_title('N-Body Simulation Animation')
-ax.legend()
+ax.legend(loc='upper right')
 ax.set_aspect('equal', adjustable='box')
 
 # Set axis limits based on data
