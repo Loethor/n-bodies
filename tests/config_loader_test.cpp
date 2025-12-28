@@ -9,10 +9,10 @@ protected:
         // Create a test config file
         std::ofstream file("test_config.txt");
         file << "# Test configuration\n";
-        file << "# Format: name mass x y z vx vy vz\n";
+        file << "# Format: name mass x y z vx vy vz radius\n";
         file << "\n";
-        file << "Body1 1.0e24 0.0 0.0 0.0 1.0 2.0 3.0\n";
-        file << "Body2 2.0e24 10.0 20.0 30.0 -1.0 -2.0 -3.0\n";
+        file << "Body1 1.0e24 0.0 0.0 0.0 1.0 2.0 3.0 1.5\n";
+        file << "Body2 2.0e24 10.0 20.0 30.0 -1.0 -2.0 -3.0 2.5\n";
         file.close();
     }
 
@@ -35,9 +35,11 @@ TEST_F(ConfigLoaderTest, LoadsValidFile) {
     EXPECT_DOUBLE_EQ(bodies[0].velocity[0], 1.0);
     EXPECT_DOUBLE_EQ(bodies[0].velocity[1], 2.0);
     EXPECT_DOUBLE_EQ(bodies[0].velocity[2], 3.0);
-    
+    EXPECT_DOUBLE_EQ(bodies[0].radius, 1.5);
+
     EXPECT_EQ(bodies[1].name, "Body2");
     EXPECT_DOUBLE_EQ(bodies[1].mass, 2.0e24);
+    EXPECT_DOUBLE_EQ(bodies[1].radius, 2.5);
     EXPECT_DOUBLE_EQ(bodies[1].position[0], 10.0);
     EXPECT_DOUBLE_EQ(bodies[1].position[1], 20.0);
     EXPECT_DOUBLE_EQ(bodies[1].position[2], 30.0);

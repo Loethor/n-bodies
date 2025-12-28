@@ -6,8 +6,8 @@ TEST(EulerIntegratorTest, IntegrateUpdatesVelocity) {
     Simulation simulation;
     simulation.dt = 1.0;
     
-    Body body("Body", {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, 1.0e24);
-    Body attractor("Attractor", {1.0e6, 0.0, 0.0}, {0.0, 0.0, 0.0}, 1.0e30);
+    Body body("Body", {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, 1.0e24, 1.0);
+    Body attractor("Attractor", {1.0e6, 0.0, 0.0}, {0.0, 0.0, 0.0}, 1.0e30, 1.0);
     
     simulation.bodies.push_back(body);
     simulation.bodies.push_back(attractor);
@@ -25,7 +25,7 @@ TEST(EulerIntegratorTest, IntegrateUpdatesPosition) {
     Simulation simulation;
     simulation.dt = 1.0;
     
-    Body body("Body", {0.0, 0.0, 0.0}, {100.0, 0.0, 0.0}, 1.0e24);
+    Body body("Body", {0.0, 0.0, 0.0}, {100.0, 0.0, 0.0}, 1.0e24, 1.0);
     simulation.bodies.push_back(body);
     
     Vec3 initial_position = simulation.bodies[0].position;
@@ -41,7 +41,7 @@ TEST(EulerIntegratorTest, IntegrateWithZeroVelocityAndAcceleration) {
     Simulation simulation;
     simulation.dt = 1.0;
     
-    Body body("Body", {100.0, 200.0, 300.0}, {0.0, 0.0, 0.0}, 1.0e24);
+    Body body("Body", {100.0, 200.0, 300.0}, {0.0, 0.0, 0.0}, 1.0e24, 1.0);
     simulation.bodies.push_back(body);
     
     Vec3 initial_position = simulation.bodies[0].position;
@@ -63,7 +63,7 @@ TEST(EulerIntegratorTest, IntegrateWithConstantVelocity) {
     Simulation simulation;
     simulation.dt = 2.0;
     
-    Body body("Body", {0.0, 0.0, 0.0}, {50.0, 25.0, 10.0}, 1.0e24);
+    Body body("Body", {0.0, 0.0, 0.0}, {50.0, 25.0, 10.0}, 1.0e24, 1.0);
     simulation.bodies.push_back(body);
     
     EulerIntegrator integrator;

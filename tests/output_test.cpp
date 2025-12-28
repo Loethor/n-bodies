@@ -10,8 +10,8 @@ TEST(OutputTest, WriteHeaderAndStep) {
         Output out(filename);
         out.writeHeader();
         std::vector<Body> bodies = {
-            Body("A", {1,2,3}, {4,5,6}, 1.0),
-            Body("B", {7,8,9}, {10,11,12}, 2.0)
+            Body("A", {1,2,3}, {4,5,6}, 1.0, 1.1),
+            Body("B", {7,8,9}, {10,11,12}, 2.0, 2.2)
         };
         out.writeStep(0.0, bodies);
         out.writeStep(1.0, bodies);

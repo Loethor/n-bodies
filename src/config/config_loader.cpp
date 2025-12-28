@@ -20,12 +20,11 @@ std::vector<Body> ConfigLoader::loadBodies(const std::string& filename) {
         
         std::istringstream iss(line);
         std::string name;
-        double mass, x, y, z, vx, vy, vz;
-        
-        if (iss >> name >> mass >> x >> y >> z >> vx >> vy >> vz) {
+        double mass, x, y, z, vx, vy, vz, radius;
+        if (iss >> name >> mass >> x >> y >> z >> vx >> vy >> vz >> radius) {
             Vec3 position = {x, y, z};
             Vec3 velocity = {vx, vy, vz};
-            bodies.emplace_back(name, position, velocity, mass);
+            bodies.emplace_back(name, position, velocity, mass, radius);
         }
     }
     

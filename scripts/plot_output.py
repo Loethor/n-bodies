@@ -17,9 +17,16 @@ df = pd.read_csv(filename)
 bodies = df['body_name'].unique()
 steps = df['time'].unique()
 
+# Only animate every 10th frame
+frame_indices = list(range(0, len(steps), 10))
+if frame_indices[-1] != len(steps) - 1:
+    frame_indices.append(len(steps) - 1)
+
 fig, ax = plt.subplots()
 colors = plt.colormaps.get_cmap('tab10')
-lines = {name: ax.plot([], [], 'o', label=name, color=colors(i / max(1, len(bodies) - 1)))[0] for i, name in enumerate(bodies)}
+# Get radius for each body (default to 1e6 if missing)
+body_radius = {row['body_name']: row['radius'] if 'radius' in row else 1e6 for _, row in df.drop_duplicates('body_name').iterrows()}
+lines = {name: ax.plot([], [], 'o', label=name, color=colors(i / max(1, len(bodies) - 1)), markersize=body_radius.get(name, 1e6)/1e6)[0] for i, name in enumerate(bodies)}
 trails = {name: ax.plot([], [], '-', color=colors(i / max(1, len(bodies) - 1)), alpha=0.5)[0] for i, name in enumerate(bodies)}
 
 ax.set_xlabel('x (m)')
@@ -43,7 +50,7 @@ def init():
     return list(lines.values()) + list(trails.values())
 
 def animate(i):
-    t = steps[i]
+    t = steps[frame_indices[i]]
     frame = df[df['time'] == t]
     for name in bodies:
         bx = frame[frame['body_name'] == name]['x'].values
@@ -55,12 +62,12 @@ def animate(i):
             trails[name].set_data(history[name]['x'], history[name]['y'])
     hour = float(t) / 3600
     ax.set_title(f'N-Body Simulation Animation\nHour: {hour:.1f}')
-    percent = int(100 * (i + 1) / len(steps))
-    if percent % 5 == 0 and (i + 1 == len(steps) or (100 * i // len(steps)) % 5 != 0):
-        print(f"Rendering: {percent}% ({i+1}/{len(steps)}) (Hour: {hour:.1f})")
+    percent = int(100 * (i + 1) / len(frame_indices))
+    if percent % 5 == 0 and (i + 1 == len(frame_indices) or (100 * i // len(frame_indices)) % 5 != 0):
+        print(f"Rendering: {percent}% ({i+1}/{len(frame_indices)}) (Hour: {hour:.1f})")
     return list(lines.values()) + list(trails.values())
 
-ani = animation.FuncAnimation(fig, animate, frames=len(steps), init_func=init, blit=True, interval=100, repeat=False)
+ani = animation.FuncAnimation(fig, animate, frames=len(frame_indices), init_func=init, blit=True, interval=100, repeat=False)
 
 # Save animation as GIF in output folder
 ani.save(gif_path, writer=animation.PillowWriter(fps=60))

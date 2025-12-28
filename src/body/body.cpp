@@ -6,5 +6,6 @@ void Body::printState() const {
     std::cout << name << ":\n";
     std::cout << "  Position: (" << position[0] << ", " << position[1] << ", " << position[2] << ")\n";
     std::cout << "  Velocity: (" << velocity[0] << ", " << velocity[1] << ", " << velocity[2] << ")\n";
+    std::cout << "  Radius: " << radius << "\n";
 }
 

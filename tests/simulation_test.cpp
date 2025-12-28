@@ -7,8 +7,8 @@ TEST(SimulationTest, ComputeAccelerationsForTwoBodies) {
     simulation.dt = 1.0;
     
     // Two bodies with known masses and positions
-    Body body1("Body1", {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, 1.0e24);
-    Body body2("Body2", {1.0e6, 0.0, 0.0}, {0.0, 0.0, 0.0}, 1.0e24);
+    Body body1("Body1", {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, 1.0e24, 1.0);
+    Body body2("Body2", {1.0e6, 0.0, 0.0}, {0.0, 0.0, 0.0}, 1.0e24, 1.0);
     
     simulation.bodies.push_back(body1);
     simulation.bodies.push_back(body2);
@@ -36,7 +36,7 @@ TEST(SimulationTest, ComputeAccelerationsForSingleBody) {
     Simulation simulation;
     simulation.dt = 1.0;
     
-    Body body("Body", {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, 1.0e24);
+    Body body("Body", {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, 1.0e24, 1.0);
     simulation.bodies.push_back(body);
     
     std::vector<Vec3> accelerations = simulation.computeAccelerations();
@@ -54,8 +54,8 @@ TEST(SimulationTest, ComputeAccelerationsSymmetric) {
     simulation.dt = 1.0;
     
     // Two bodies equidistant from origin
-    Body body1("Body1", {1.0e6, 0.0, 0.0}, {0.0, 0.0, 0.0}, 2.0e24);
-    Body body2("Body2", {-1.0e6, 0.0, 0.0}, {0.0, 0.0, 0.0}, 2.0e24);
+    Body body1("Body1", {1.0e6, 0.0, 0.0}, {0.0, 0.0, 0.0}, 2.0e24, 1.0);
+    Body body2("Body2", {-1.0e6, 0.0, 0.0}, {0.0, 0.0, 0.0}, 2.0e24, 1.0);
     
     simulation.bodies.push_back(body1);
     simulation.bodies.push_back(body2);
