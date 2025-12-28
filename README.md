@@ -46,6 +46,11 @@ time,body_name,x,y,z,vx,vy,vz
 ```
 
 ## Visualization
+
+Example animation:
+
+![Earth-Moon Simulation](output/earth_moon.gif)
+
 df = pd.read_csv('output.csv')
 
 ### Python Visualization
@@ -56,7 +61,7 @@ cd scripts
 python3 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
-python plot_output.py ../output.csv
+python plot_output.py ../output/earth_moon.csv
 ```
 This will plot the trajectories of all bodies using matplotlib.
 
